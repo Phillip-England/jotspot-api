@@ -1,6 +1,8 @@
 import os
 import json
 
+import requests
+
 class TestInstance:
 
   def __init__(self, session, method, url, test_count, purpose, status_code_expected, data):
@@ -11,7 +13,7 @@ class TestInstance:
     self.purpose = purpose
     self.status_code_expected = status_code_expected
     self.response = None
-    self.data = json.dumps(data)
+    self.data = json.dumps(data) if data != None else None
     self.headers = {"Content-Type": "application/json"}
 
   def run(self):
@@ -51,9 +53,9 @@ class TestUnit:
       "green": "\033[0;32m"
     }
   
-  def build_test(self, purpose, status_code_expected, data=None):
+  def build_test(self, purpose, status_code_expected, data=None, empty_session=False):
     instance = TestInstance(
-      session=self.session, 
+      session=self.session if empty_session == False else requests.Session(), 
       method=self.method, 
       url=self.url, 
       test_count=len(self.tests)+1,
@@ -91,5 +93,8 @@ class TestUnit:
       if self.print_results: self.print_test_intro(test)
       test.run()
       if self.print_results: self.print_response(test)
+
+  def drop_tests(self):
+    self.tests = []
 
 

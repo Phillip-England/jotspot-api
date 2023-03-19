@@ -10,7 +10,8 @@ from test_lib import TestUnit
 def user_tests(session):
 
   delete_all_users_test(session=session, print_results=False)
-  create_new_user_test(session=session, print_results=True)
-  # login_user_test(session=session, print_results=True)
-  # get_logged_in_user_test(session=session, print_results=True)
+  create_new_user_test(session=session, print_results=False)
+  login_user_test(session=session, print_results=False)
+
+  get_logged_in_user_test(session=session, print_results=True)
   # logout_user_test(session=session, print_results=True)

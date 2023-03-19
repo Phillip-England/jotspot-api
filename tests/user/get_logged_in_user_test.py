@@ -15,7 +15,17 @@ def get_logged_in_user_test(session, print_results=True):
     status_code_expected=200,
   )
 
+  test_unit.build_test(
+    purpose='testing if logged in user is required', 
+    status_code_expected=401,
+    empty_session=True
+  )
+
   test_unit.run_tests()
+
+
+
+
 
 
     

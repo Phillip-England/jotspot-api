@@ -29,7 +29,7 @@ def create_new_user_test(session, print_results=False):
   )
 
   test_unit.build_test(
-    purpose='testing for max length errors', 
+    purpose='testing username for max length errors', 
     status_code_expected=400,
     data={
       'username': 'phillipasdasdasdasdasdasdasdasdasdasdasdas',
@@ -38,7 +38,7 @@ def create_new_user_test(session, print_results=False):
   )
 
   test_unit.build_test(
-    purpose='testing for min length errors', 
+    purpose='testing username for min length errors', 
     status_code_expected=400,
     data={
       'username': 'ph',
@@ -47,11 +47,38 @@ def create_new_user_test(session, print_results=False):
   )
 
   test_unit.build_test(
-    purpose='testing whitelist', 
+    purpose='testing username whitelist', 
     status_code_expected=400,
     data={
       'username': 'phillip====',
       'password': 'password'
+    }
+  )
+
+  test_unit.build_test(
+    purpose='testing password max length', 
+    status_code_expected=400,
+    data={
+      'username': 'jon',
+      'password': 'passwordasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasda'
+    }
+  )
+
+  test_unit.build_test(
+    purpose='testing password min length', 
+    status_code_expected=400,
+    data={
+      'username': 'jon',
+      'password': 'p'
+    }
+  )
+
+  test_unit.build_test(
+    purpose='testing password whitelist', 
+    status_code_expected=400,
+    data={
+      'username': 'jon',
+      'password': 'passwo;;;'
     }
   )
 
