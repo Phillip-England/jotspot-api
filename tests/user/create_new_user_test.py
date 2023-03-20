@@ -29,6 +29,15 @@ def create_new_user_test(session, print_results=False):
   )
 
   test_unit.build_test(
+    purpose='testing if username is required', 
+    status_code_expected=400,
+    data={
+      'username': '',
+      'password': 'password'
+    }
+  )
+
+  test_unit.build_test(
     purpose='testing username for max length errors', 
     status_code_expected=400,
     data={
@@ -52,6 +61,15 @@ def create_new_user_test(session, print_results=False):
     data={
       'username': 'phillip====',
       'password': 'password'
+    }
+  )
+
+  test_unit.build_test(
+    purpose='testing password is required', 
+    status_code_expected=400,
+    data={
+      'username': 'jon',
+      'password': ''
     }
   )
 
