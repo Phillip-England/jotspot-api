@@ -54,16 +54,13 @@ class Validator:
       self.errors.append(self.min_length_error)
 
   def check_whitelist(self):
-
     operation_failed = False
-
     for value_char in self.value:
       found_char = False
       for whitelist_char in self.whitelist:
         if value_char == whitelist_char:
           found_char = True
           break
-        
       if found_char == False:
         self.errors.append(self.whitelist_error)
         self.is_valid = False

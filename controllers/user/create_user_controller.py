@@ -27,6 +27,19 @@ def create_user_controller(body, res, client):
     res.status_code = 400
     first_error = username_validator.errors[0]
     return {'message': first_error}
+  
+  # building password validator
+  password_validator = Validator(body.password) \
+    .set_max_length(64, 'password must contain 64 characters or less') \
+    .set_min_length(8, 'password must contain 8 or more characters') \
+    .set_whitelist('!@#$%^&*()', 'password can only contain letters, numbers, and the following symbols: !@#$%^&*()')
+  password_validator.validate()
+
+  # dealing with password validation results
+  if password_validator.is_valid == False:
+    res.status_code = 400
+    first_error = password_validator.errors[0]
+    return {'message': first_error}
 
   # encrypting passwords
   encrypted_password = encrypt(body.password)
