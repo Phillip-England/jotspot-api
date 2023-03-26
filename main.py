@@ -10,4 +10,3 @@ app = FastAPI()
 load_dotenv()
 client = pymongo.MongoClient(os.getenv("MONGO_URI"))
 routes.mount(app, client)
-

@@ -13,6 +13,8 @@ class Validator:
     self.min_length_error = None
     self.whitelist = None
     self.whitelist_error = None
+    self.required = None
+    self.required_error = None
 
   def set_string_name(self, string_name):
     self.string_name = string_name
@@ -37,8 +39,14 @@ class Validator:
     self.whitelist = whitelist
     self.whitelist_error = whitelist_error
     return self
+  
+  def set_required(self, required_error):
+    self.required = True
+    self.required_error = required_error
+    return self
 
   def validate(self):
+    if self.required != None: self.check_required()
     if self.max_length != None: self.check_max_length()
     if self.min_length != None: self.check_min_length()
     if self.whitelist != None: self.check_whitelist()
@@ -65,4 +73,9 @@ class Validator:
         self.errors.append(self.whitelist_error)
         self.is_valid = False
         break
+
+  def check_required(self):
+    if len(self.value) == 0:
+      self.errors.append(self.required_error)
+      self.is_valid = False
 
